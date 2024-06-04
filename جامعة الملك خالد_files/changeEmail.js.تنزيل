@@ -1,0 +1,116 @@
+
+            //(c) Copyright Modelworks Software 2005 - All rights reserved
+            
+            var XMLHttpRequestObject = new Array();
+            var prog, newimg;
+            
+            function changeEmail(email){
+                onChangeEmail(email);
+            }
+        
+            function onChangeEmail(email)
+            {   
+            
+                dispalyProgress();
+                
+                if (XMLHttpRequestObject == null)
+                {
+                    XMLHttpRequestObject = new Array();
+                }
+                
+                
+                var requestObject = GetXMLHttpRequest();
+                if (requestObject)
+                {
+                    XMLHttpRequestObject[email] = new Object();
+                    XMLHttpRequestObject[email].requestObject = requestObject;
+
+                    
+                    requestObject.onreadystatechange = new Function ("onChangeEmailProcess('" + email + "')");
+                    
+                    var url = "/kku/ajaxchangeemailservlet?email=" + email;                 
+                                                                       
+                    requestObject.open("POST", url, true);
+                    requestObject.setRequestHeader( "Content-Type" , 
+                     "application/x-www-form-urlencoded; charset=UTF-8" );
+                    requestObject.send("");                                                     
+                }
+            }
+            
+            function onChangeEmailProcess(email)
+            {
+            
+              
+                if (XMLHttpRequestObject[email] != null &&
+                    XMLHttpRequestObject[email].requestObject &&
+                    XMLHttpRequestObject[email].requestObject.readyState == 4) 
+                {
+                    
+                    if (XMLHttpRequestObject[email].requestObject.status == 200) 
+                    {
+                        var result = XMLHttpRequestObject[email].requestObject.responseText;
+                   	hideProgress();		
+                        if (result == "busy")
+                        {
+                            alert("The server is busy. Try again.");
+                            XMLHttpRequestObject[email] = null;
+                        }
+                        else{}
+                    }
+                    else{}
+                }
+            }
+            
+            function GetXMLHttpRequest() 
+            {
+                var object = null;
+                
+                if (window.XMLHttpRequest) 
+                {
+                    object = new XMLHttpRequest();
+                } 
+                else if (window.ActiveXObject) 
+                {
+                    try
+                    {
+                        object = new ActiveXObject("Msxml2.XMLHTTP");
+                    }
+                    catch(e)
+                    {
+                    }
+                    
+                    if (object == null)
+                    {
+                        try
+                        {
+                            object = new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                        catch(e)
+                        {
+                        }
+                    }
+                }
+                
+                if (object == null)
+                {
+                    alert("Your browser does not support AJAX");
+                }
+                
+                return object;
+            }
+
+            function dispalyProgress(){
+                document.getElementById("myForm:imageEmail").style.display ="none";
+                prog = document.getElementById("progEmail");  
+                newimg=document.createElement('img');
+                newimg.src='/kku/images/loading8.gif';               
+                prog.appendChild(newimg);
+            }
+            
+            function hideProgress(){
+                var progressText = document.getElementById("progEmail");
+                progressText.style.visibility=='hidden';
+                progressText.removeChild(newimg);
+                document.getElementById("myForm:imageEmail").style.display ="";
+            }            
+            

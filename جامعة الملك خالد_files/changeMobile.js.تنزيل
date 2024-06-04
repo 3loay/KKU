@@ -1,0 +1,116 @@
+
+            //(c) Copyright Modelworks Software 2005 - All rights reserved
+            
+            var XMLHttpRequestObject = new Array();
+            var prog, newimg;
+            
+            function changeMobile(mobile){
+                onChangeMobile(mobile);
+            }
+        
+            function onChangeMobile(mobile)
+            {   
+            
+                dispalyProgress();
+                
+                if (XMLHttpRequestObject == null)
+                {
+                    XMLHttpRequestObject = new Array();
+                }
+                
+                
+                var requestObject = GetXMLHttpRequest();
+                if (requestObject)
+                {
+                    XMLHttpRequestObject[mobile] = new Object();
+                    XMLHttpRequestObject[mobile].requestObject = requestObject;
+
+                    
+                    requestObject.onreadystatechange = new Function ("onChangeMobileProcess('" + mobile + "')");
+                    
+                    var url = "/kku/ajaxchangemobileservlet?mobile=" + mobile;                 
+                                                                       
+                    requestObject.open("POST", url, true);
+                    requestObject.setRequestHeader( "Content-Type" , 
+                     "application/x-www-form-urlencoded; charset=UTF-8" );
+                    requestObject.send("");                                                     
+                }
+            }
+            
+            function onChangeMobileProcess(mobile)
+            {
+            
+              
+                if (XMLHttpRequestObject[mobile] != null &&
+                    XMLHttpRequestObject[mobile].requestObject &&
+                    XMLHttpRequestObject[mobile].requestObject.readyState == 4) 
+                {
+                    
+                    if (XMLHttpRequestObject[mobile].requestObject.status == 200) 
+                    {
+                        var result = XMLHttpRequestObject[mobile].requestObject.responseText;
+                   	hideProgress();		
+                        if (result == "busy")
+                        {
+                            alert("The server is busy. Try again.");
+                            XMLHttpRequestObject[mobile] = null;
+                        }
+                        else{}
+                    }
+                    else{}
+                }
+            }
+            
+            function GetXMLHttpRequest() 
+            {
+                var object = null;
+                
+                if (window.XMLHttpRequest) 
+                {
+                    object = new XMLHttpRequest();
+                } 
+                else if (window.ActiveXObject) 
+                {
+                    try
+                    {
+                        object = new ActiveXObject("Msxml2.XMLHTTP");
+                    }
+                    catch(e)
+                    {
+                    }
+                    
+                    if (object == null)
+                    {
+                        try
+                        {
+                            object = new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                        catch(e)
+                        {
+                        }
+                    }
+                }
+                
+                if (object == null)
+                {
+                    alert("Your browser does not support AJAX");
+                }
+                
+                return object;
+            }
+
+            function dispalyProgress(){
+                document.getElementById("myForm:imageMobile").style.display ="none";
+                prog = document.getElementById("progMobile");  
+                newimg=document.createElement('img');
+                newimg.src='/kku/images/loading8.gif';               
+                prog.appendChild(newimg);
+            }
+            
+            function hideProgress(){
+                var progressText = document.getElementById("progMobile");
+                progressText.style.visibility=='hidden';
+                progressText.removeChild(newimg);
+                document.getElementById("myForm:imageMobile").style.display ="";
+            }            
+            
