@@ -1,0 +1,2284 @@
+
+        //(c) Copyright Modelworks Software 2005 - All rights reserved
+       
+        var level, errorNumbers, errorChars, errorSpecialChars, errorMail, errorYear1, errorYear2;
+        var langStr, max, degree, errorMaxMark, errorPassword, errorConfirmPassword, errorConfirmEmail, errorNoIdentifications;
+        var operation, errorMaxNumber, errorMaxTel , errorUploadImg , errorSocial , errorLang ,errEngCharFound,errArabicCharFound , errorHoppy;
+        var isMale;
+        var validation = true;
+        
+        var bridgeValue= "";
+
+	function setErrorMessage(errorNum,errorChar,errorSpChars,errorMails,errorMaxMarks,errorY1,
+                                errorY2,lang,levels,errorPasswords,errorConfirmPasswords,
+                                errorConfirmEmails, operations, errorMaxNumbers, errorMaxTels , errorUploadImage ,errorSocialAccount,errorLangAdd, errorNoIdents ,errEngFound,errArbCharFound , errorHoppyAdd){
+	    errorNumbers = errorNum;
+	    errorChars   = errorChar;
+	    errorYear1   = errorY1;
+	    errorYear2   = errorY2;
+	    errorMail    = errorMails;
+            langStr      = lang;
+            level        = levels;
+            errorMaxMark = errorMaxMarks;
+	    errorSpecialChars = errorSpChars;
+            errorPassword = errorPasswords;
+            errorConfirmPassword = errorConfirmPasswords;
+            errorConfirmEmail = errorConfirmEmails;
+            operation = operations;
+            errorMaxNumber = errorMaxNumbers;
+            errorMaxTel = errorMaxTels;
+            errorUploadImg = errorUploadImage;
+            errorSocial = errorSocialAccount;
+            errorLang = errorLangAdd;
+            errorNoIdentifications = errorNoIdents;
+            errEngCharFound = errEngFound;
+            errArabicCharFound = errArbCharFound;
+            errorHoppy = errorHoppyAdd;
+	}
+
+        function popMenu(){
+            document.getElementById('hrefImage').onclick();
+            document.getElementById('dataApplicationDiv').style.display = "";
+        }	
+          
+	function setDegreeAndMaxChosies(maxs,degrees){
+	    max    = maxs;
+	    degree = degrees
+	}
+        
+        function showHandicaps(radio){
+            var span = document.getElementById("handicapsSpan");
+            var healthLabel=document.getElementsByTagName("myForm:health");
+            //alert(document.forms['myForm'].elements['myForm:health'][0].value)
+            
+            if(radio.value == '0'){
+               span.style.display ='none'; 
+            }
+            else{
+               span.style.display ='';
+            }
+        }
+        
+        
+        function changeCountryApp(zoneCode,countrySelect){
+            changeCountry(zoneCode,countrySelect.value);   
+        }
+        
+        function changeCountryZoneApp(countryZoneSelect){
+            var countrySelect = document.getElementById("myForm:certCountry");
+            changeCountryZone(countrySelect.value,countryZoneSelect.value);   
+        }
+        
+        function changePremCountryApp(citySelect){
+            var countrySelect = document.getElementById("myForm:permCountry");
+            changePremCountry(countrySelect.value,citySelect.value);   
+        }
+        
+	function change(radio){
+	
+            var span = document.getElementById("LOW");
+            //var TransferLabel=document.getElementById("myForm:_id64").checked;
+            if(radio.value == '1'){
+               span.style.display =''; 
+            }
+            else{
+               span.style.display ='none';
+            }
+        }
+        
+        function changeJob(radio){
+	
+            var span = document.getElementById("JobDiv");
+            //var jobLabel=document.getElementById("myForm:_id92").checked;
+            
+            if(radio.value == '1'){
+               span.style.display =''; 
+            }
+            else{
+               span.style.display ='none';
+               //document.getElementById("myForm:organization").selectedIndex= 0;
+               //document.getElementById("myForm:indefiniteJob").value="";
+            }
+        }
+
+        function changeHoppy(radio){
+            var span = document.getElementById("hoppyDiv");
+            if(radio.value == '1'){
+                span.style.display ='';
+                document.getElementById("myForm:hoppyDivHidden").value = 'block';
+            } else{
+                span.style.display ='none';
+                document.getElementById("myForm:hoppyDivHidden").value = 'none';
+            }
+        }
+
+        function changeSaheid(radio){
+            var span = document.getElementById("chiledSaheidDiv");
+            if(radio.value == '1'){
+                span.style.display ='';
+                document.getElementById("myForm:chiledSaheidHidden").value = 'block';
+            } else{
+                span.style.display ='none';
+                document.getElementById("myForm:chiledSaheidHidden").value = 'none';
+            }
+        }
+
+
+        
+        function changeTofel(radio){
+		
+	    var span = document.getElementById("tofelDiv");
+
+	    if(radio.value == '1'){
+	       span.style.display =''; 
+	    }
+	    else{
+	       span.style.display ='none';
+	    }
+        }
+        
+        function changeEducationDiploma(radio){
+		
+	    var span = document.getElementById("educationDiplomaDiv");
+
+	    if(radio.value == '1'){
+	       span.style.display =''; 
+	    }
+	    else{
+	       span.style.display ='none';
+	    }
+        }
+        
+        function setConsNationality(){
+            
+//            if(document.getElementById("myForm:nationality").value== "1"){
+//                document.getElementById("TrConsNationality").style.display ='none';
+//                document.getElementById("TrConsNationalityH").style.display ='none';
+//            }
+//            else{
+//                document.getElementById("TrConsNationality").style.display ='';
+//                document.getElementById("TrConsNationalityH").style.display ='';
+//            }
+        }
+        
+        function changeDegree(){
+        
+            var spanHign = document.getElementById("LOW_HIGH_EDUCATION");
+            var spanLow  = document.getElementById("LOW_EDUCATION");
+           
+            var levels = level.split("@");
+            var lowLevel  = levels[0].split(",");
+            var highLowLevel = "High";
+            var isGraduated = "1";
+
+            for(i = 0; i <lowLevel.length; i++){
+                if(document.getElementById("myForm:degree").value == lowLevel[i]){
+                   highLowLevel = "Low";   isGraduated = "0"; break;
+                }   
+            }
+            
+            if( highLowLevel == "Low"){
+                spanLow.style.display ='';
+                spanHign.style.display ='none';
+            }            
+            else if( highLowLevel == "High"){
+                spanLow.style.display ='none';
+                spanHign.style.display ='';
+            } 
+
+            document.getElementById("myForm:isGraduated").value = isGraduated;
+        }
+        
+        function checkPassword(){
+            var pass1 = false, pass2 = false;
+            
+            var password = document.getElementById("myForm:password").value;
+            var confirmPassword = document.getElementById("myForm:confirmPassword").value;
+            
+            if(password != '' && !IsNumericOnly(password)){
+               pass1 = true;
+               alert(errorChars);
+               document.getElementById("myForm:password").focus();
+            }
+            
+            if(!pass1){
+                if(password.length != "" && password.length < 6){
+                    alert(errorPassword);
+                    document.getElementById("myForm:password").focus()
+                }
+                else if(password != "" && confirmPassword != "" && password != confirmPassword) {
+                    alert(errorConfirmPassword);
+                    document.getElementById("myForm:confirmPassword").focus()
+                }
+            }
+        }
+        
+        function checkConfirmPassword(){
+        
+            var pass1 = false, pass2 = false;
+            var password = document.getElementById("myForm:password").value;
+            var confirmPassword = document.getElementById("myForm:confirmPassword").value;
+           
+            if(confirmPassword != '' && !IsNumericOnly(confirmPassword)){
+               pass2 = true;
+               alert(errorChars);
+               document.getElementById("myForm:confirmPassword").value='';
+               document.getElementById("myForm:confirmPassword").focus();
+            }
+            
+            if(!pass2){
+                if(confirmPassword.length != "" && confirmPassword.length < 6){
+                    alert(errorPassword);
+                     document.getElementById("myForm:confirmPassword").value='';
+                    document.getElementById("myForm:confirmPassword").focus()
+                }
+                else if(password != "" && confirmPassword != "" && password != confirmPassword) {
+                    alert(errorConfirmPassword);
+                     document.getElementById("myForm:confirmPassword").value='';
+                    document.getElementById("myForm:confirmPassword").focus()
+                }
+            }
+        }
+        
+        function checkEmail(){
+            
+            var email = document.getElementById("myForm:email").value;
+           // var confirmEmail = document.getElementById("myForm:confirmEmail").value;
+            var passEmail = false;
+            
+            if( !emailCheck(email,errorMail,langStr)){
+               passEmail = true; 
+               document.getElementById("myForm:email").value='';
+               setTimeout(function(){document.getElementById("myForm:email").focus()},0);
+            }
+            
+            if(!passEmail ) {
+               passEmail = true; 
+               //alert(errorConfirmEmail);
+               //document.getElementById("myForm:confirmEmail").focus();
+            }
+        }
+        
+        function checkConfirmEmail(){
+            
+            var email = document.getElementById("myForm:email").value;
+            var confirmEmail = document.getElementById("myForm:confirmEmail").value;
+            var passEmail = false;
+            
+            if(confirmEmail != '' && !emailCheck(confirmEmail,errorMail,langStr)){
+               passEmail = true;
+               document.getElementById("myForm:confirmEmail").value='';
+               document.getElementById("myForm:confirmEmail").focus();
+            }
+        
+            if(!passEmail && email != "" && confirmEmail != "" && email != confirmEmail) {
+                alert(errorConfirmEmail);
+                document.getElementById("myForm:confirmEmail").value='';
+                document.getElementById("myForm:confirmEmail").focus();
+            }
+        }
+        
+        function loginApplicationOnline(malGender){
+            validation = true;
+            if(document.getElementById("myForm:nationalNo").value == "") {
+               document.getElementById("myForm:nationalNo").style.backgroundColor='rgb(255,198,132)';
+               validation = false;
+               document.getElementById("myForm:nationalNo").focus(); 
+            }
+            else{
+               document.getElementById("myForm:nationalNo").style.backgroundColor='white';
+            }
+            
+            if(malGender == 'true') // 16/8/09 they asked to stop qodorat validation coz entesab do not have qodorat
+            {
+                /*if(document.getElementById("myForm:capabilities").value == "") {
+                   document.getElementById("myForm:capabilities").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:capabilities").focus(); 
+                   validation = false; 
+                }
+                else{
+                    document.getElementById("myForm:capabilities").style.backgroundColor='white';
+                }*/
+            }
+            /*if(document.getElementById("myForm:tahselMark").value == "") {
+               document.getElementById("myForm:tahselMark").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:tahselMark").focus(); 
+               validation = false; 
+            }
+            else{
+                document.getElementById("myForm:tahselMark").style.backgroundColor='white';
+            }*/
+            
+            
+            
+            if(validation)
+               document.getElementById("myForm:commandLink").onclick();
+        }   
+        
+        
+           
+        function checkNationalAndDegree(){
+            validation = true;
+            if(document.getElementById("myForm:nationalNo").value == "") {
+               document.getElementById("myForm:nationalNo").style.backgroundColor='rgb(255,198,132)';
+               validation = false;
+               document.getElementById("myForm:nationalNo").focus(); 
+            }
+            else{
+               document.getElementById("myForm:nationalNo").style.backgroundColor='white';
+            }
+            
+            if(document.getElementById("myForm:degreeCode").value == "-1") {
+               document.getElementById("myForm:degreeCode").style.backgroundColor='rgb(255,198,132)';
+               validation = false;
+               document.getElementById("myForm:degreeCode").focus(); 
+            }else{
+               document.getElementById("myForm:degreeCode").style.backgroundColor='white';
+            }
+            
+            if(validation)
+               document.getElementById("myForm:commandLink").onclick();
+        }
+        
+        
+        function checkNational(){
+            validation = true;
+            if(document.getElementById("myForm:nationalNo").value == "") {
+               document.getElementById("myForm:nationalNo").style.backgroundColor='rgb(255,198,132)';
+               validation = false;
+               document.getElementById("myForm:nationalNo").focus(); 
+            }
+            else{
+               document.getElementById("myForm:nationalNo").style.backgroundColor='white';
+            }
+
+            if(validation)
+               document.getElementById("myForm:commandLink").onclick();
+        }
+        
+        
+        function validateHighStudyDegreeCode(){
+            var isDiplomPar =  document.getElementById('myForm:isDiplom').value;
+            if(isDiplomPar != null){
+                if(isDiplomPar == 'true'){
+                    return;   
+                }
+            }
+            if(document.getElementById("myForm:degreeCode").value == "-1") {
+               document.getElementById("myForm:degreeCode").style.backgroundColor='rgb(255,198,132)';
+               validation = false;
+               document.getElementById("myForm:degreeCode").focus(); 
+            }else{
+               document.getElementById("myForm:degreeCode").style.backgroundColor='white';
+            }
+        }
+        
+        
+        
+        function validateNewApplication(){
+            if(document.getElementById("myForm:nationalNo").value == "") {
+               document.getElementById("myForm:nationalNo").style.backgroundColor='rgb(255,198,132)';
+               validation = false;
+               document.getElementById("myForm:nationalNo").focus(); 
+            }else if(document.getElementById("myForm:nationalNo").value.length != 10){
+                document.getElementById("myForm:nationalNo").style.backgroundColor='rgb(255,198,132)';
+                validation = false;
+                document.getElementById("myForm:nationalNo").focus(); 
+            }else{
+               document.getElementById("myForm:nationalNo").style.backgroundColor='white';
+            }
+            
+            if (operation == 'false'){
+                if(document.getElementById("myForm:password").value == "") {
+                   document.getElementById("myForm:password").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:password").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:password").style.backgroundColor='white';
+                }
+    
+                if(document.getElementById("myForm:confirmPassword").value == "") {
+                   document.getElementById("myForm:confirmPassword").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:confirmPassword").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:confirmPassword").style.backgroundColor='white';
+                }
+                
+                if(document.getElementById("myForm:email").value == "") {
+                   document.getElementById("myForm:email").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:email").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:email").style.backgroundColor='white';
+                }
+//    
+//                if(document.getElementById("myForm:confirmEmail").value == "") {
+//                   document.getElementById("myForm:confirmEmail").style.backgroundColor='rgb(255,198,132)';
+//                   if(validation)
+//                      document.getElementById("myForm:confirmEmail").focus(); 
+//                   validation = false;
+//                }
+//                else{
+//                    document.getElementById("myForm:confirmEmail").style.backgroundColor='white';
+//                }
+                
+                var isDiplomPar3 =  document.getElementById('myForm:isDiplom').value;
+                if(isDiplomPar3 == 'true' || isDiplomPar3 == true ){ 
+                    //---pass
+                }else{
+                    if(document.getElementById("myForm:appAnswer") != null) { 
+                        if(document.getElementById("myForm:appAnswer").value == "") {
+                           document.getElementById("myForm:appAnswer").style.backgroundColor='rgb(255,198,132)';
+                           if(validation)
+                              document.getElementById("myForm:appAnswer").focus(); 
+                           validation = false;
+                        } else{
+                            document.getElementById("myForm:appAnswer").style.backgroundColor='white';
+                        }
+                    }
+                }
+                
+            }  else{
+                if(document.getElementById("myForm:email").value == "") {
+                  document.getElementById("myForm:email").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:email").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:email").style.backgroundColor='white';
+                }
+            }
+        }
+        
+        function validateBasicStudentApplication(){
+            if(document.getElementById("myForm:homePhone").value == "") {
+               document.getElementById("myForm:homePhone").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:homePhone").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:homePhone").style.backgroundColor='white';
+            }
+            
+            if(document.getElementById("myForm:fnames").value == "") {
+               document.getElementById("myForm:fnames").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:fnames").focus(); 
+               validation = false;
+            } else if (blockEnglishLang(document.getElementById("myForm:fnames"))){
+                document.getElementById("myForm:fnames").style.backgroundColor='rgb(255,198,132)';
+                alert(errEngCharFound);
+                if(validation)
+                  document.getElementById("myForm:fnames").focus(); 
+                validation = false;
+            } else{
+                document.getElementById("myForm:fnames").style.backgroundColor='white';
+            }
+            
+            if(document.getElementById("myForm:fatherNames").value == "") {
+               document.getElementById("myForm:fatherNames").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:fatherNames").focus(); 
+               validation = false; 
+            } else if (blockEnglishLang(document.getElementById("myForm:fatherNames"))){
+                document.getElementById("myForm:fatherNames").style.backgroundColor='rgb(255,198,132)';
+                alert(errEngCharFound);
+                if(validation)
+                  document.getElementById("myForm:fatherNames").focus(); 
+                validation = false;
+            } else{
+                document.getElementById("myForm:fatherNames").style.backgroundColor='white';
+            }
+            
+            if(document.getElementById("myForm:grandNames").value == "") {
+               document.getElementById("myForm:grandNames").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:grandNames").focus(); 
+               validation = false;
+            } else if (blockEnglishLang(document.getElementById("myForm:grandNames"))){
+                document.getElementById("myForm:grandNames").style.backgroundColor='rgb(255,198,132)';
+                alert(errEngCharFound);
+                if(validation)
+                  document.getElementById("myForm:grandNames").focus(); 
+                validation = false;
+            } else{
+                document.getElementById("myForm:grandNames").style.backgroundColor='white';
+            }
+            
+            if(document.getElementById("myForm:familyNames").value == "") {
+               document.getElementById("myForm:familyNames").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:familyNames").focus(); 
+               validation = false;
+            } else if (blockEnglishLang(document.getElementById("myForm:familyNames"))){
+                document.getElementById("myForm:familyNames").style.backgroundColor='rgb(255,198,132)';
+                alert(errEngCharFound);
+                if(validation)
+                  document.getElementById("myForm:familyNames").focus(); 
+                validation = false;
+            } else{
+                document.getElementById("myForm:familyNames").style.backgroundColor='white';
+            }
+            
+            if(document.getElementById("myForm:fname").value == "") {
+               document.getElementById("myForm:fname").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:fname").focus(); 
+               validation = false;
+             } else if (blockArabicLang(document.getElementById("myForm:fname"))){
+                document.getElementById("myForm:fname").style.backgroundColor='rgb(255,198,132)';
+                alert(errArabicCharFound);
+                if(validation)
+                  document.getElementById("myForm:fname").focus(); 
+                validation = false;
+            } else{
+                document.getElementById("myForm:fname").style.backgroundColor='white';
+            }
+            
+            if(document.getElementById("myForm:fatherName").value == "") {
+               document.getElementById("myForm:fatherName").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:fatherName").focus(); 
+               validation = false;
+             } else if (blockArabicLang(document.getElementById("myForm:fatherName"))){
+                document.getElementById("myForm:fatherName").style.backgroundColor='rgb(255,198,132)';
+                alert(errArabicCharFound);
+                if(validation)
+                  document.getElementById("myForm:fatherName").focus(); 
+                validation = false;
+            } else{
+                document.getElementById("myForm:fatherName").style.backgroundColor='white';
+            }
+            
+            if(document.getElementById("myForm:grandName").value == "") {
+               document.getElementById("myForm:grandName").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:grandName").focus(); 
+               validation = false;
+             } else if (blockArabicLang(document.getElementById("myForm:grandName"))){
+                document.getElementById("myForm:grandName").style.backgroundColor='rgb(255,198,132)';
+                alert(errArabicCharFound);
+                if(validation)
+                  document.getElementById("myForm:grandName").focus(); 
+                validation = false;
+            } else{
+                document.getElementById("myForm:grandName").style.backgroundColor='white';
+            }
+            
+            if(document.getElementById("myForm:familyName").value == "") {
+               document.getElementById("myForm:familyName").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:familyName").focus(); 
+               validation = false;
+             } else if (blockArabicLang(document.getElementById("myForm:familyName"))){
+                document.getElementById("myForm:familyName").style.backgroundColor='rgb(255,198,132)';
+                alert(errArabicCharFound);
+                if(validation)
+                  document.getElementById("myForm:familyName").focus(); 
+                validation = false;
+            } else{
+                document.getElementById("myForm:familyName").style.backgroundColor='white';
+            }
+            
+            var isDiplomPar3 =  document.getElementById('myForm:isDiplom').value;
+            if(isDiplomPar3 == 'true' || isDiplomPar3 == true ){ 
+                 if(trim(document.getElementById("myForm:mobile").value) == "" || document.getElementById("myForm:mobile").value.length != 12   || document.getElementById("myForm:mobile").value.substring(0,4) != "9665"   ) {
+                   document.getElementById("myForm:mobile").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:mobile").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:mobile").style.backgroundColor='white';
+                }
+            }else{
+                if(trim(document.getElementById("myForm:mobile").value) == "" || document.getElementById("myForm:mobile").value.length != 10   || document.getElementById("myForm:mobile").value.substring(0,1) != "0"   ) {
+                   document.getElementById("myForm:mobile").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:mobile").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:mobile").style.backgroundColor='white';
+                }
+            }
+                var isDiplomPar =  document.getElementById('myForm:isDiplom').value;
+                 if(isDiplomPar == 'true' || isDiplomPar == true ){  
+                  if(trim(document.getElementById("myForm:ibanAccount").value) == "" ) {
+                       document.getElementById("myForm:ibanAccount").style.backgroundColor='rgb(255,198,132)';
+                       if(validation)
+                          document.getElementById("myForm:ibanAccount").focus(); 
+                       validation = false;
+                    } else{
+                        document.getElementById("myForm:ibanAccount").style.backgroundColor='white';
+                    }
+                }
+            
+            
+            
+            
+            
+            if(document.getElementById("myForm:permCity") != null){
+                if(document.getElementById("myForm:permCity").value == "-1") {
+                    document.getElementById("myForm:permCity").style.backgroundColor='rgb(255,198,132)';
+                        if(validation)
+                            document.getElementById("myForm:permCity").focus(); 
+                    validation = false;
+                }
+                else{
+                    document.getElementById("myForm:permCity").style.backgroundColor='white';
+                }
+            }
+
+            var radioIndex = 0;
+            if(navigator.appName == "Microsoft Internet Explorer"){
+                radioIndex = 1;
+            }
+            
+            var jobRadio = document.getElementsByName("myForm:health");
+            var i = 0;
+            var isChecked = false;
+          
+            while(jobRadio[radioIndex] != null && i < 2 ){
+                if(jobRadio[radioIndex].checked == true){
+                    isChecked = true;
+                }
+                i = i + 1; 
+                radioIndex = radioIndex + 1;
+                jobRadio = document.getElementsByName("myForm:health");
+            }
+            
+            if(isChecked == false){
+                document.getElementById("myForm:health").style.backgroundColor='rgb(255,198,132)';
+                if(validation)
+                    document.getElementById("myForm:health").focus(); 
+                validation = false;
+            }else{
+                  document.getElementById("myForm:health").style.backgroundColor='white';
+            }
+            
+            var isBridge      =  document.getElementById('myForm:isBrdge').value;
+            var isDiplom      =  document.getElementById('myForm:isDiplom').value;
+            var isHighStudy   =  document.getElementById('myForm:isHighStudy').value;
+            var isImageExiest =  document.getElementById('myForm:isImageExiest').value;
+
+            if((isBridge == 'false' || isBridge == false)){
+                 if (isImageExiest == 'false' || isImageExiest == false){
+                    alert(errorUploadImg);
+                    validation = false;
+                }
+              }
+          }       
+        
+        
+        function validateIsTransferApplication(){
+            if(document.forms['myForm'].elements['myForm:isTransfer'][0].checked == true) {
+                if(document.getElementById("myForm:transGpa").value == "") {
+                   document.getElementById("myForm:transGpa").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:transGpa").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:transGpa").style.backgroundColor='white';
+                }
+                
+                if(document.getElementById("myForm:maxTransGpa").value == "") {
+                   document.getElementById("myForm:maxTransGpa").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:maxTransGpa").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:maxTransGpa").style.backgroundColor='white';
+                }
+            }
+        }
+        
+        function validateBrithDateApplication(){
+            if(document.getElementById("myForm:DOBDay").selectedIndex == 0) {
+               document.getElementById("myForm:DOBDay").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:DOBDay").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:DOBDay").style.backgroundColor='white';
+            }
+  
+            if(document.getElementById("myForm:DOBMonth").selectedIndex == 0) {
+               document.getElementById("myForm:DOBMonth").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:DOBMonth").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:DOBMonth").style.backgroundColor='white';
+            }
+            
+            if(document.getElementById("myForm:DOBYear").selectedIndex == 0) {
+               document.getElementById("myForm:DOBYear").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:DOBYear").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:DOBYear").style.backgroundColor='white';
+            }
+
+            
+            /*if(document.getElementById("myForm:cityZone").selectedIndex == 0) {
+               document.getElementById("myForm:cityZone").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:cityZone").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:cityZone").style.backgroundColor='white';
+            }*/
+            
+            /*if(document.getElementById("myForm:city").selectedIndex == 0) {
+               document.getElementById("myForm:city").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:city").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:city").style.backgroundColor='white';
+            }*/
+        }
+        
+        function validateGenderApplication(){
+            if((document.forms['myForm'].elements['myForm:gender'][0].checked == false) &&
+               (document.forms['myForm'].elements['myForm:gender'][1].checked == false)) {
+                document.getElementById("myForm:gender").style.backgroundColor='rgb(255,198,132)';
+                if(validation)
+                    document.getElementById("myForm:gender").focus(); 
+                validation = false;
+            }
+            else{
+                document.getElementById("myForm:gender").style.backgroundColor='white';
+            }
+        }
+        
+        function validateJobApplication(){
+            if(document.forms['myForm'].elements['myForm:job'][0].checked == false) {
+               if(document.getElementById("myForm:organization").selectedIndex == 0) {
+                  document.getElementById("myForm:organization").style.backgroundColor='rgb(255,198,132)';
+                  if(validation)
+                     document.getElementById("myForm:organization").focus(); 
+                  validation = false;
+               }
+               else{
+                   document.getElementById("myForm:organization").style.backgroundColor='white';
+               }
+            }
+        }
+
+
+        function validateHoppyApplication(){
+            var isBridge  =  document.getElementById('myForm:isBrdge').value;
+            var nonSelectedLangs = 0;
+            var hoppyId = document.getElementsByName("myForm:hoppyType");
+            if(isBridge == false || isBridge == 'false') {
+                if (document.forms['myForm'].elements['myForm:hoppy'][1].checked == true) {
+
+                    if(hoppyId.length == 0){
+                        return;
+                    }
+
+                    var x;
+                    for(x=0; x < hoppyId.length; x++){
+                        if(hoppyId[x].checked){
+                            nonSelectedLangs++;
+                        }
+                    }
+
+                    if(nonSelectedLangs == 0){
+                        alert(errorHoppy);
+                        validation = false;
+                        hoppyId[0].focus();
+                    }
+                }
+            }
+        }
+        
+        function validateHighStudyStudentCertApplication(){
+            //if(document.getElementById("myForm:univCountry").selectedIndex == 0) {
+            //   document.getElementById("myForm:univCountry").style.backgroundColor='rgb(255,198,132)';
+            //   if(validation)
+            //      document.getElementById("myForm:univCountry").focus(); 
+            //   validation = false;
+            //}
+            //else{
+            //    document.getElementById("myForm:univCountry").style.backgroundColor='white';
+            //}
+            
+             
+            
+            if(document.getElementById("myForm:prevUniv").selectedIndex == 0) {
+               document.getElementById("myForm:prevUniv").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:prevUniv").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:prevUniv").style.backgroundColor='white';
+            }
+            
+             if(document.getElementById("myForm:prevMajor").selectedIndex == 0) {
+               document.getElementById("myForm:prevMajor").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:prevMajor").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:prevMajor").style.backgroundColor='white';
+            }
+            
+ 
+            if(document.getElementById("myForm:univEvaluation").value =='' || document.getElementById("myForm:univEvaluation").selectedIndex == 0) {
+             
+               document.getElementById("myForm:univEvaluation").style.backgroundColor='rgb(255,198,132)';
+//               if(validation)
+//                  document.getElementById("myForm:univEvaluation").focus(); 
+               validation = false;
+            }
+            else{
+              
+                document.getElementById("myForm:univEvaluation").style.backgroundColor='white';
+            }
+              
+            if(document.getElementById("myForm:univGpa").value == "") {
+               document.getElementById("myForm:univGpa").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:univGpa").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:univGpa").style.backgroundColor='white';
+            }
+            
+            
+               var isDiplomPar =  document.getElementById('myForm:isDiplom').value;
+                 if(isDiplomPar == 'false'){
+                    if(document.getElementById("myForm:maxUnivGpa").value == "") {
+                       document.getElementById("myForm:maxUnivGpa").style.backgroundColor='rgb(255,198,132)';
+                       if(validation)
+                          document.getElementById("myForm:maxUnivGpa").focus(); 
+                       validation = false;
+                    }
+                    else{
+                        document.getElementById("myForm:maxUnivGpa").style.backgroundColor='white';
+                    }
+               }
+            
+             if(document.getElementById("myForm:univYear").value == "") {
+               document.getElementById("myForm:univYear").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:univYear").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:univYear").style.backgroundColor='white';
+            }
+            
+           /* if(document.getElementById("myForm:universityCapability").value == "") {
+               document.getElementById("myForm:universityCapability").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:universityCapability").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:universityCapability").style.backgroundColor='white';
+            }*/
+            
+        }
+        
+        function validateSecondaryStudentCertApplication(){
+            var isBridge  =  document.getElementById('myForm:isBrdge').value;
+            if(isBridge == false || isBridge == 'false'){
+                if(document.getElementById("myForm:certYear").value == "") {
+                   document.getElementById("myForm:certYear").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:certYear").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:certYear").style.backgroundColor='white';
+                }
+                
+                if(document.getElementById("myForm:countryZone").selectedIndex == 0) {
+                   document.getElementById("myForm:countryZone").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:countryZone").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:countryZone").style.backgroundColor='white';
+                }
+                
+    //            if(document.getElementById("myForm:percentage").value == "") {
+    //               document.getElementById("myForm:percentage").style.backgroundColor='rgb(255,198,132)';
+    //               if(validation)
+    //                  document.getElementById("myForm:percentage").focus(); 
+    //               validation = false;
+    //            }
+    //            else{
+    //                document.getElementById("myForm:percentage").style.backgroundColor='white';
+    //            }
+                
+                if(isMale == 'true'){
+                    /*if(document.getElementById("myForm:capabilities").value == "") {
+                       document.getElementById("myForm:capabilities").style.backgroundColor='rgb(255,198,132)';
+                       if(validation)
+                          document.getElementById("myForm:capabilities").focus(); 
+                       validation = false; 
+                    }
+                    else{
+                        document.getElementById("myForm:capabilities").style.backgroundColor='white';
+                    }*/
+                }
+            }
+        }
+        
+         
+        function validateStudyingType(){
+            var isBridge  =  document.getElementById('myForm:isBrdge').value;
+            if(isBridge == false || isBridge == 'false'){
+                if(document.getElementById("myForm:studyingType").value == "null") {
+                    document.getElementById("myForm:studyingType").style.backgroundColor='rgb(255,198,132)';
+                        if(validation)
+                            document.getElementById("myForm:studyingType").focus(); 
+                    validation = false;
+                }
+                else{
+                    document.getElementById("myForm:studyingType").style.backgroundColor='white';
+                }
+            }
+        }
+         
+         
+        function validateNationalAddress(){
+            var studyType = document.getElementById('myForm:studyingType').value;
+            var isBridge = document.getElementById('myForm:isBrdge').value;
+            if(isBridge == true || isBridge == 'true'){
+            
+                var nationalBuildingNoObj = document.getElementById("myForm:nationalBuildingNo");
+                if(nationalBuildingNoObj.value == "") {
+                    nationalBuildingNoObj.style.backgroundColor='rgb(255,198,132)';
+                    if(validation)
+                        nationalBuildingNoObj.focus(); 
+                    validation = false;
+                } else {
+                    nationalBuildingNoObj.style.backgroundColor='white';
+                }
+                
+                var nationalStreetNameObj = document.getElementById("myForm:nationalStreetName");
+                if(nationalStreetNameObj.value == "") {
+                    nationalStreetNameObj.style.backgroundColor='rgb(255,198,132)';
+                    if(validation)
+                        nationalStreetNameObj.focus(); 
+                    validation = false;
+                } else {
+                    nationalStreetNameObj.style.backgroundColor='white';
+                }
+                
+                var nationalDistrictNameObj = document.getElementById("myForm:nationalDistrictName");
+                if(nationalDistrictNameObj.value == "") {
+                    nationalDistrictNameObj.style.backgroundColor='rgb(255,198,132)';
+                    if(validation)
+                        nationalDistrictNameObj.focus(); 
+                    validation = false;
+                } else {
+                    nationalDistrictNameObj.style.backgroundColor='white';
+                }
+                
+                var nationalCityNoObj = document.getElementById("myForm:nationalCityNo");
+                if(nationalCityNoObj.value == "") {
+                    nationalCityNoObj.style.backgroundColor='rgb(255,198,132)';
+                    if(validation)
+                        nationalCityNoObj.focus(); 
+                    validation = false;
+                } else {
+                    nationalCityNoObj.style.backgroundColor='white';
+                }
+                
+                var nationalZipCodeObj = document.getElementById("myForm:nationalZipCode");
+                if(nationalZipCodeObj.value == "") {
+                    nationalZipCodeObj.style.backgroundColor='rgb(255,198,132)';
+                    if(validation)
+                        nationalZipCodeObj.focus(); 
+                    validation = false;
+                } else {
+                    nationalZipCodeObj.style.backgroundColor='white';
+                }
+                
+                var nationalAdditionalNoObj = document.getElementById("myForm:nationalAdditionalNo");
+                if(nationalAdditionalNoObj.value == "") {
+                    nationalAdditionalNoObj.style.backgroundColor='rgb(255,198,132)';
+                    if(validation)
+                        nationalAdditionalNoObj.focus(); 
+                    validation = false;
+                } else {
+                    nationalAdditionalNoObj.style.backgroundColor='white';
+                }
+                
+               /* if(studyType == '7'){
+                    var diplomaDegreeTypeObj = document.getElementById("myForm:diplomaDegreeType");
+                    if(diplomaDegreeTypeObj.value == "") {
+                        diplomaDegreeTypeObj.style.backgroundColor='rgb(255,198,132)';
+                        if(validation)
+                            diplomaDegreeTypeObj.focus(); 
+                        validation = false;
+                    } else {
+                        diplomaDegreeTypeObj.style.backgroundColor='white';
+                    }
+                    
+                    var healthSpecExpiryDateObj = document.getElementById("myForm:healthSpecExpiryDate");
+                    if(healthSpecExpiryDateObj.value == "") {
+                        healthSpecExpiryDateObj.style.backgroundColor='rgb(255,198,132)';
+                        if(validation)
+                            healthSpecExpiryDateObj.focus(); 
+                        validation = false;
+                    } else {
+                        healthSpecExpiryDateObj.style.backgroundColor='white';
+                    }
+                }   */
+            }
+        }
+          
+         
+        function validateCertificationType(){
+            var isBridge  =  document.getElementById('myForm:isBrdge').value;
+            if(isBridge == false || isBridge == 'false'){
+                if(document.getElementById("myForm:certType").value == "null") {
+                    document.getElementById("myForm:certType").style.backgroundColor='rgb(255,198,132)';
+                        if(validation)
+                            document.getElementById("myForm:certType").focus(); 
+                    validation = false;
+                }
+                else{
+                    document.getElementById("myForm:certType").style.backgroundColor='white';
+                }
+            }
+        }
+         
+        
+        function validateContactApplication(){
+            if(document.getElementById("myForm:contPerson").value == "") {
+               document.getElementById("myForm:contPerson").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:contPerson").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:contPerson").style.backgroundColor='white';
+            }
+            
+            var isDiplomPar3 =  document.getElementById('myForm:isDiplom').value;
+            if(isDiplomPar3 == 'true' || isDiplomPar3 == true ){ 
+                //---pass
+            }else{
+                if(document.getElementById("myForm:contAddress").value == "") {
+                   document.getElementById("myForm:contAddress").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:contAddress").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:contAddress").style.backgroundColor='white';
+                }
+          
+                if(document.getElementById("myForm:contHomePhone").value == "") {
+                   document.getElementById("myForm:contHomePhone").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:contHomePhone").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:contHomePhone").style.backgroundColor='white';
+                }
+            }
+            
+            
+             if(document.getElementById("myForm:contMobile").value == "") {
+               document.getElementById("myForm:contMobile").style.backgroundColor='rgb(255,198,132)';
+               if(validation)
+                  document.getElementById("myForm:contMobile").focus(); 
+               validation = false;
+            }
+            else{
+                document.getElementById("myForm:contMobile").style.backgroundColor='white';
+            }
+            
+            if(isDiplomPar3 == 'true' || isDiplomPar3 == true ){ 
+                //---pass
+            }else{
+                if(document.getElementById("myForm:contJob").selectedIndex == 0) {
+                   document.getElementById("myForm:contJob").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:contJob").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:contJob").style.backgroundColor='white';
+                }
+            }
+            
+            
+        }
+        
+    
+         function validatePostBranchesApplication(){
+         
+           if(document.getElementById("myForm:postCity") != null){
+               if(document.getElementById("myForm:postCity").selectedIndex == 0) {
+                   document.getElementById("myForm:postCity").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:postCity").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:postCity").style.backgroundColor='white';
+                }
+            }
+            
+       
+            if(document.getElementById("myForm:postBranch") != null){
+                 if(document.getElementById("myForm:postBranch").selectedIndex == 0) {
+                   document.getElementById("myForm:postBranch").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:postBranch").focus(); 
+                   validation = false;
+                }
+                else{
+                    document.getElementById("myForm:postBranch").style.backgroundColor='white';
+                }
+            }
+           
+         }
+
+        function validateLowStudyApplication(commandLink){
+            var validationError = true;
+            
+            var isBridge  =  document.getElementById('myForm:isBrdge').value;
+            if(isBridge == false || isBridge == 'false'){
+                if(validation){
+                    /*if(document.forms['myForm'].elements['myForm:isTransfer'][0].checked == true) {
+                       var mark = parseInt(document.getElementById("myForm:transGpa").value);
+                       var maxMark = parseInt(document.getElementById("myForm:maxTransGpa").value);
+                       if(mark > maxMark){
+                          alert(errorMaxMark);  
+                          validationError = false;
+                          document.getElementById("myForm:maxTransGpa").focus();
+                       }
+                    }*/
+                    var certYear = document.getElementById("myForm:certYear").value;
+                    var DOBYear = document.getElementById("myForm:DOBYear").value;
+                    
+                    if(parseInt(DOBYear) + 16 > parseInt(certYear)){
+                       validationError = false;
+                       alert(errorYear2)
+                    }
+                }
+            }
+          
+            if(validation && validationError){
+               document.getElementById("myForm:"+commandLink).onclick();
+            }   
+        }
+        
+        function validateHighStudyApplication(commandLink){
+            var validationError = true
+            
+            if(validation){
+               var mark = parseInt(document.getElementById("myForm:univGpa").value);
+               var maxMark ;
+               var isDiplomPar =  document.getElementById('myForm:isDiplom').value;
+                if(isDiplomPar == 'true'){
+                   maxMark = parseInt(document.getElementById("myForm:maxUnivGpaDiplom").value);
+                } else {
+                  maxMark = parseInt(document.getElementById("myForm:maxUnivGpa").value);
+               }
+               
+               if(mark > maxMark){
+                  alert(errorMaxMark);  
+                  validationError = false;
+                  document.getElementById("myForm:maxUnivGpa").focus();
+               }
+            }
+            
+            if(validation && validationError){
+               document.getElementById("myForm:"+commandLink).onclick();
+            }   
+        }
+        
+        function submitApplicationOnline(highStudy, commandLink, male){
+            isMale = male;
+            if(highStudy == 'false')
+               submitLowStudyApplicationOnline(commandLink);
+            else if(highStudy == 'true')
+               submitHighStudyApplicationOnline(commandLink); 
+        }
+        
+        function submitLowStudyApplicationOnline(commandLink){
+            validation = true;
+            
+            validateNewApplication();
+           
+            validateBasicStudentApplication();
+      
+            validateBrithDateApplication();
+    
+            validateJobApplication();
+
+            validateBridgeCertApplication();
+
+            validateSecondaryStudentCertApplication();
+
+            validateStudyingType();
+
+            validateCertificationType();
+
+            validateContactApplication();
+
+            //validatePostBranchesApplication();
+
+            validateMandatoryIdentifitionLanguages();
+
+            validateHoppyApplication();
+
+            validateIban();
+            
+            validateNationalAddress();
+
+            validateLowStudyApplication(commandLink);
+            
+        }
+        
+        
+         function validateIban(){
+            var isBridge  =  document.getElementById('myForm:isBrdge').value;
+            var ibanConfig = document.getElementById('myForm:ibanConfig').value;
+            if(isBridge == 'false' || isBridge == false){
+            if (ibanConfig == '1'){
+                 if(document.getElementById("myForm:bankNo").selectedIndex == 0) {
+                   document.getElementById("myForm:bankNo").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:bankNo").focus(); 
+                   validation = false;
+                 }else{
+                    document.getElementById("myForm:bankNo").style.backgroundColor='white';
+                }
+                
+                
+                if(document.getElementById("myForm:num3").value == "") {
+                   document.getElementById("myForm:num3").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:num3").focus(); 
+                   validation = false;
+                  } else{
+                    document.getElementById("myForm:num3").style.backgroundColor='white';
+                }
+                
+                
+                 if(document.getElementById("myForm:num1").value == "") {
+                   document.getElementById("myForm:num1").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:num1").focus(); 
+                   validation = false;
+                  } else{
+                    document.getElementById("myForm:num1").style.backgroundColor='white';
+                }
+                
+                
+                
+                
+                 if(document.getElementById("myForm:numconf3").value == "") {
+                   document.getElementById("myForm:numconf3").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:numconf3").focus(); 
+                   validation = false;
+                  } else{
+                    document.getElementById("myForm:numconf3").style.backgroundColor='white';
+                }
+                
+                
+                
+                
+                 if(document.getElementById("myForm:numconf1").value == "") {
+                   document.getElementById("myForm:numconf1").style.backgroundColor='rgb(255,198,132)';
+                   if(validation)
+                      document.getElementById("myForm:numconf1").focus(); 
+                   validation = false;
+                  } else{
+                    document.getElementById("myForm:numconf1").style.backgroundColor='white';
+                }
+        
+            
+            }
+            
+            
+             if (document.getElementById("myForm:agreeBox") != null){
+               if(document.getElementById("myForm:agreeBox").checked != true){ 
+                   alert(document.getElementById("myForm:checkAgreeMSG").innerHTML);
+                   validation = false;
+                   return;
+                }  
+              } 
+             }
+         
+         }
+         
+         
+         
+         
+          function checkConfirmNum(){
+                var num1 = document.getElementById("myForm:num1").value;
+                var numconf1 = document.getElementById("myForm:numconf1").value;
+                
+                var num3 = document.getElementById("myForm:num3").value;
+                var numconf3 = document.getElementById("myForm:numconf3").value;
+                
+                
+                  if(num1 != "" && numconf1 != "" && num1 != numconf1) {
+                    document.getElementById("myForm:numconf1").style.backgroundColor='rgb(255,198,132)';
+                    document.getElementById("myForm:numconf1").value = ''; 
+                  }
+                
+                
+                  if(num3 != "" && numconf3 != "" && num3 != numconf3) {
+                     document.getElementById("myForm:numconf3").style.backgroundColor='rgb(255,198,132)';
+                     document.getElementById("myForm:numconf3").value = ''; 
+                  }
+             }
+    
+    
+    
+        
+         function validateMandatoryLanguages(){
+            var valid = true;
+            var nonSelectedLangs = 0;
+            var langId = document.getElementsByName("myForm:langType");
+            if(langId.length == 0){
+                return;
+            }
+            
+            var x;
+            for(x=0; x < langId.length; x++){
+                if(langId[x].checked){
+                   nonSelectedLangs++; 
+                }
+            }
+            
+            if(nonSelectedLangs == 0){
+                alert(errorLang);
+                validation = false;
+                langId[0].focus();
+            }
+        }
+        
+        
+        
+        function validateMandatoryIdentifitionLanguages(){
+            var valid = true;
+            var nonSelectedDocs = 0;
+            var nonSelectedLangs = 0;
+            var identDocs = document.getElementsByName("myForm:identificationId");
+            var langId = document.getElementsByName("myForm:langType");
+            
+            if(identDocs.length == 0){
+                return;
+            }
+            
+            var i;
+            for(i=0; i < identDocs.length; i++){
+                if(identDocs[i].checked){
+                   nonSelectedDocs++; 
+                }
+            }
+            
+            if(nonSelectedDocs == 0){
+                alert(errorNoIdentifications);
+                validation = false;
+                valid = false;
+                identDocs[0].focus();
+            }
+        
+
+        if (valid){
+            if(langId.length == 0){
+                return;
+            }
+            
+            var x;
+            for(x=0; x < langId.length; x++){
+                if(langId[x].checked){
+                   nonSelectedLangs++; 
+                }
+            }
+            
+            if(nonSelectedLangs == 0){
+                alert(errorLang);
+                validation = false;
+                langId[0].focus();
+            }
+          }
+            
+            
+            
+        }
+         
+        function validateBridgeCertApplication(){
+           var isBridge  =  document.getElementById('myForm:isBrdge').value;
+           if(isBridge == 'true' || isBridge == true){
+               validateHighStudyStudentCertApplication();
+           }
+         }
+        
+         
+        function submitHighStudyApplicationOnline(commandLink){
+         
+            validation = true;
+            if(commandLink != 'commandUpdateLink'){
+                validateHighStudyDegreeCode();
+            }
+            validateNewApplication();
+            validateBasicStudentApplication();
+            validateGenderApplication();
+            validateBrithDateApplication();
+            validateJobApplication();
+            validateHighStudyStudentCertApplication();
+            validateStudyingType();
+            validateContactApplication();
+            validateMandatoryIdentifitionLanguages();
+            validateHighStudyApplication(commandLink);
+        }
+        
+        function IsNumeric(sText){
+            var ValidChars = "0123456789.";
+            var IsNumber=true;
+            var Char;
+        
+             if(sText.length <= 0)
+                 return false;
+        
+             for (i = 0; i < sText.length && IsNumber == true; i++){ 
+                 Char = sText.charAt(i); 
+                 if (ValidChars.indexOf(Char) == -1){
+                    IsNumber = false;
+                    break;
+                 }
+              }
+             return IsNumber;
+        }
+        
+        function IsNumericOnly(sText){
+             var ValidChars = "0123456789";
+             var IsNumber=true;
+             var Char;
+        
+             if(sText.length <= 0)
+                 return false;
+        
+             for (i = 0; i < sText.length && IsNumber == true; i++){ 
+                 Char = sText.charAt(i); 
+                 if (ValidChars.indexOf(Char) == -1){
+                    IsNumber = false;
+                    break;
+                 }
+              }
+             return IsNumber;
+        }
+        
+        function IsNumericTelphone(sText){
+             var ValidChars = "0123456789/.-\\";
+             var IsNumber=true;
+             var Char;
+        
+             if(sText.length <= 0)
+                 return false;
+        
+             for (i = 0; i < sText.length && IsNumber == true; i++){ 
+                 Char = sText.charAt(i); 
+                 if (ValidChars.indexOf(Char) == -1){
+                    IsNumber = false;
+                    break;
+                 }
+              }
+             return IsNumber;
+        }     
+        
+	function onKeySubmitForm(e,textId){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+		           
+	     if(key == 13)
+                document.getElementById("myForm:appLink").onclick();
+        }
+
+	function onKeyPressBlockCharsAndPunctuationMarks(e,textId){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+            
+             if(key == 13){
+                if(textId.value == '' || IsNumeric(textId.value)){ 
+                    if(document.getElementById("myForm:appLink")!= null)
+                   document.getElementById("myForm:appLink").onclick();
+                }
+                else{
+                   textId.disabled=true;
+                   alert(errorChars);
+                   textId.disabled=!textId.disabled;
+                   //textId.focus();
+                }
+             }
+             
+             if(IsNumeric(keychar))
+                 return true;
+             return false;
+        }
+        
+        function onBlurblockCharsAndPunctuationMarks2(textId){
+             var text = textId.value; 
+
+             if(text != ''){
+	     	if(!IsNumeric(text)){
+                   alert(errorChars);
+		   textId.focus();
+		}
+            }
+        }
+        
+        
+        function onBlurblockCharsAndPunctuationMarks(textId){
+	     var text = textId.value; 
+
+	     if(text != ''){
+	     	if(!IsNumeric(text)){
+                   alert(errorChars);
+		   textId.focus();
+		}
+                else if(textId.value > 100){
+                   alert(errorMaxNumber);
+                   textId.focus();
+                }
+	     }
+        }
+        
+        function onBlurblockCharsAndPunctuationTofelMarks(textId, maxMark, msgs){
+	     var text = textId.value; 
+
+	     if(text != ''){
+	     	if(!IsNumeric(text)){
+                   alert(errorChars);
+		   textId.focus();
+		}
+                else if(textId.value > maxMark){
+                   alert(msgs);
+                   textId.focus();
+                }
+	     }
+        }
+        
+        function onKeyPressBlockNumbers(e,textId){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+            
+             if(key == 13){
+                if(textId.value  == '' || !IsNumeric(textId.value)){ 
+                   document.getElementById("myForm:appLink").onclick();
+                }
+                else{
+                    textId.disabled=true;
+                    alert(errorNumbers);
+                    textId.disabled=!textId.disabled;
+                    textId.focus();
+                }
+             }
+            
+             if(IsNumeric(keychar))
+                return false;
+             return true;
+        }
+
+        function onKeyBlockPunctuationsMark(e,textId){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+           
+             if(key == 13){
+                 var text = textId.value; 
+                 var notCharacter = "<>?!@#$%^&*(){}*+='[]/\\" +'"';
+                 var found = false; 
+                 for(i = 0 ;i < notCharacter.length; i++){
+                     if(text.indexOf(notCharacter.charAt(i)) != -1){
+                        textId.disabled=!textId.disabled;
+                        alert(errorSpecialChars);
+                        textId.disabled=!textId.disabled;
+                        found = true; 
+                        textId.focus(); break;
+                     }
+                 }
+                 if(!found){
+                     document.getElementById("myForm:appLink").onclick();
+                 }
+             }
+               
+             var notCharacter = "<>?!@#$%^&*(){}*+='[]/\\" + '"'; 
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(keychar.indexOf(notCharacter.charAt(i)) != -1){
+                    return false;
+                 } 
+             }
+             return true;
+        }   
+        
+ 	function onBlurblockPunctuationMarks(textId){
+             var text = textId.value; 
+             var notCharacter = "<>?!@#$%^&*(){}*+='[]/\\" + '"'; 
+              
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(text.indexOf(notCharacter.charAt(i)) != -1){
+                    alert(errorSpecialChars);
+                    textId.focus();break;
+                 }
+             }
+        }       
+        
+        function onKeyValidateMail(e,textId){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+	   
+	     
+             if(key == 13){
+                 textId.disabled=true;
+                 if(textId.value != '' && !emailCheck(textId.value,errorMail,langStr)){
+                    textId.disabled=!textId.disabled;
+                    textId.value='';
+                    setTimeout(function(){textId.focus()},0);
+                   
+                 }
+                 else{
+                    textId.disabled=!textId.disabled;
+                    document.getElementById("myForm:appLink").onclick();
+                 }
+             }
+               
+             var notCharacter = "<>?!#$%^&*(){}*+='[]/\\" + '"'; 
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(keychar.indexOf(notCharacter.charAt(i)) != -1){
+                    return false;
+                 } 
+             }
+             return true;
+        }        
+        
+        function onBlurValidateMail(textId){
+             if(textId.value != '' && !emailCheck(textId.value,errorMail,langStr)){
+                textId.focus();
+             }
+        }      
+
+        function onKeyBlockNumbersAndPunctuations(e,textId){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+           
+             if(key == 13){
+                 var text = textId.value; 
+                 var notCharacter = "1234567890.<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+                 var found = false; 
+                 for(i = 0 ;i < notCharacter.length; i++){
+                     if(text.indexOf(notCharacter.charAt(i)) != -1){
+                        textId.disabled=true; 
+                        alert(errorNumbers);
+                        found = true; 
+                        textId.disabled=!textId.disabled;
+                        textId.focus(); break;
+                     }
+                 }
+                 if(!found){
+                     document.getElementById("myForm:appLink").onclick();
+                 }
+             }
+               
+             var notCharacter = "1234567890.<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(keychar.indexOf(notCharacter.charAt(i)) != -1){
+                    return false;
+                 } 
+             }
+             return true;
+        }
+        
+        function onBlurblockNumbersAndPunctuationMarks(textId){
+             var text = textId.value; 
+             var notCharacter = "1234567890.<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+              
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(text.indexOf(notCharacter.charAt(i)) != -1){
+                    alert(errorNumbers);
+                    textId.focus();break;
+                 }
+             }
+        }
+        
+   
+                
+        function onKeyPressBlockCharsFromTel(e,textId){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+            
+             if(key == 13){
+                if(textId.value == '' || IsNumericTelphone(textId.value)){ 
+                   document.getElementById("myForm:appLink").onclick();
+                }
+                else{
+                    textId.disabled=true;
+                    alert(errorChars);
+                    textId.disabled=!textId.disabled;
+                    textId.focus();
+                }
+             }
+            
+             if(IsNumericTelphone(keychar))
+                return true;
+                
+             return false;
+        }       
+        
+        function onBlurblockCharAndPunctFromTel(textId){
+             var text = textId.value; 
+           
+             if(text != '' && !IsNumericTelphone(text)){
+                alert(errorChars);
+                textId.focus();
+             }
+        }  
+        
+        function onKeyPressNumericOnly(e,textId){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+            
+             if(key == 13){
+                if(textId.value == '' || IsNumericOnly(textId.value)){ 
+                   document.getElementById("myForm:appLink").onclick();
+                }
+                else{
+                    textId.disabled=true;
+                    alert(errorChars);
+                    textId.disabled=!textId.disabled;
+                    //textId.focus();
+                }
+             }
+            
+             if(IsNumericOnly(keychar))
+                return true;
+                
+             return false;
+        } 
+        
+        function onBlurNumericOnly(textId){
+             var text = textId.value; 
+           
+             if(text != '' && !IsNumericOnly(text)){
+                alert(errorChars);
+                textId.value = '';
+                textId.focus();
+             }
+        }  
+        
+        function onBlurNumericOnlyTel(textId){
+             var text = textId.value; 
+           
+             if(text != ''){
+                if(!IsNumericOnly(text)){
+                    alert(errorMaxTel);
+                    textId.focus();
+                }
+                else if(text.length < 7){
+                    alert(errorMaxTel);
+                    textId.focus();
+                }
+             }
+        }
+        
+        function onKeyBlockPunctuationsMarkFromAddress(e,textId){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+           
+             if(key == 13){
+                 var text = textId.value; 
+                 var notCharacter = "<>?!@#$%^&*(){}*+='[]" + '"'; 
+                 var found = false; 
+                 for(i = 0 ;i < notCharacter.length; i++){
+                     if(text.indexOf(notCharacter.charAt(i)) != -1){
+                        textId.disabled=!textId.disabled;
+                        alert(errorSpecialChars);
+                        textId.disabled=!textId.disabled;
+                        found = true; 
+                        textId.focus(); break;
+                     }
+                 }
+                 if(!found){
+                     document.getElementById("myForm:appLink").onclick();
+                 }
+             }
+               
+             var notCharacter = "<>?!@#$%^&*(){}*+='[]/\\" + '"';  
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(keychar.indexOf(notCharacter.charAt(i)) != -1){
+                    return false;
+                 } 
+             }
+             return true;
+        }
+        
+ 	function onBlurblockPunctuationMarksFromAddress(textId){
+             var text = textId.value; 
+             var notCharacter = "<>?!@#$%^&*(){}*+='[]" + '"'; 
+              
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(text.indexOf(notCharacter.charAt(i)) != -1){
+                    alert(errorSpecialChars);
+                    textId.focus();break;
+                 }
+             }
+        }      
+        
+        function onBlurNationalNo(textId,message){
+            if(textId.value != '' && !IsNumeric(textId.value)){
+                alert(errorChars);
+                //textId.focus();
+             }
+            else{
+                if(textId.value != ''){
+                    if(textId.value.length != 10){
+                        alert(message);
+                        //textId.focus();
+                    }
+                }
+            }
+        }
+        
+        function onBlurMaxUnivGpa(textId){
+             var text = document.getElementById("myForm:maxTransGpa").value; 
+             
+             if(text != '' ){
+                 if(!IsNumeric(text)){
+                    alert(errorChars);
+                    textId.focus();
+                 }
+                 else if(textId.value > 100){
+                   alert(errorMaxNumber);
+                   textId.focus();
+                 }
+                 else if(document.getElementById("myForm:transGpa").value != ''){
+                    var maxMark = parseInt(text);
+                    var mark = parseInt(document.getElementById("myForm:transGpa").value);
+                    if(maxMark < mark){
+                       alert(errorMaxMark);
+                       textId.focus();
+                    }
+                 }
+             }
+        }
+        
+        function onKeyBlockPunctuationsMarkModify(e,textId){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+           
+             if(key == 13){
+                 var text = textId.value; 
+                 var notCharacter = "<>?!@#$%^&*(){}*+='[]/\\" + '"'; 
+                 var found = false; 
+                 for(i = 0 ;i < notCharacter.length; i++){
+                     if(text.indexOf(notCharacter.charAt(i)) != -1){
+                        textId.disabled=!textId.disabled;
+                        alert(errorSpecialChars);
+                        textId.disabled=!textId.disabled;
+                        found = true; 
+                        textId.focus(); break;
+                     }
+                 }
+                 if(!found){
+                     document.getElementById("myForm:commandLink").onclick();
+                 }
+             }
+               
+             var notCharacter = "<>?!@#$%^&*(){}*+='[]/\\" + '"'; 
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(keychar.indexOf(notCharacter.charAt(i)) != -1){
+                    return false;
+                 } 
+             }
+             return true;
+        }
+        
+	function maxChoices(){
+             
+             var treeName = "myForm:serverTreeApp";// + degree;
+            
+             var x,i,j;
+             var count =0; var z = 0;
+             var v1 = -1, v2 = -1, v3 = -1;
+             var arrayVar = new Array();
+             var countVar  = 0;
+             var foundVar = false;
+            
+            
+             for(i=0;i<20;i++){
+                for(j=0;j<50;j++){
+                   try{
+                        z = z + 1;
+                        x = document.getElementById(treeName+":0:"+i+":"+j+":Check").checked;
+                        
+                        if(x == true){
+                           count= count + 1;
+                           countVar = countVar + 1;
+                           arrayVar[countVar - 1] = z; 
+                        }
+                   }
+                   catch(e){break;}
+                }
+              }
+            
+              z=0;
+            
+             if(count >= max){
+                  for(i=0;i<20;i++){
+                    for(j=0;j<50;j++){
+                       try{
+                            z = z + 1;
+                            foundVar = false;
+                            for(l = 0;l<countVar;l++){
+                                if(z == arrayVar[l]){
+                                   foundVar = true;
+                                }
+                            }
+                            if(!foundVar){
+                               document.getElementById(treeName+":0:"+i+":"+j+":Check").disabled=true;
+                            }
+                       }
+                      catch(e){break;}
+                    }
+                  }              
+             }      
+             
+             if(count< max){
+                for(i=0;i<20;i++){
+                  for(j=0;j<50;j++){
+                     try{
+                        document.getElementById(treeName+":0:"+i+":"+j+":Check").disabled=false;  
+                     }
+                     catch(e){break;}
+                  }
+                }              
+             }                
+        }
+        
+        
+	function setPriorityOfValue(element , value, size, texts, index){
+          
+          var valueIndex; var j; var n; var sel = 0;
+          
+          for(j = 1 ; j <= size ; j++) {      
+          
+            if(j != value){
+               
+               for(n = 0 ; n < size ; n++){
+                   valueIndex = document.getElementById("myForm:Tabel:"+n+":index").value;
+                   if(j == valueIndex){
+                      n = size;
+                      sel = 1;
+                   }
+               }
+               
+               if(sel == 0){
+                       var elOptNew = document.createElement('option');
+                       if(j == 0){
+                          elOptNew.text = texts;
+                       }
+                       else{
+                          elOptNew.text = j;
+                       }
+                       elOptNew.value = j;	
+                       try {
+                          element.add(elOptNew, null); 
+                       }catch(ex) {
+                          element.add(elOptNew);
+                       }
+               }
+               sel = 0;
+            }
+          }
+          element.value = index;
+       }
+       
+       function trim(s)
+{
+	return rtrim(ltrim(s));
+}
+
+
+    function checkSocialData(){
+            var pass = true;
+
+
+             if(document.getElementById("myForm:socialType").selectedIndex == 0) {
+               document.getElementById("myForm:socialType").style.backgroundColor='rgb(255,198,132)';
+               if(pass)
+                  document.getElementById("myForm:socialType").focus(); 
+               pass = false;
+            }
+            else{
+                document.getElementById("myForm:socialType").style.backgroundColor='white';
+            }
+            
+            
+            
+             if(document.getElementById("myForm:socialAcount").value =='') {
+             
+               document.getElementById("myForm:socialAcount").style.backgroundColor='rgb(255,198,132)';
+               if(pass)
+                  document.getElementById("myForm:socialAcount").focus(); 
+               pass = false;
+            }
+            else{
+              
+                document.getElementById("myForm:socialAcount").style.backgroundColor='white';
+            }
+            
+
+            if(pass){
+                var cmd = document.getElementById('myForm:saveSocialRecord');
+                cmd.onclick();
+            }
+            
+        }
+
+        function blockEnglishLang(textId){
+            var text = textId.value; 
+            var notCharacter = "1234567890.<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+            var found = false; 
+            for(i = 0 ;i < notCharacter.length; i++){
+                 if(text.indexOf(notCharacter.charAt(i)) != -1){
+                    textId.disabled=true; 
+                    alert(errorNumbers);
+                    found = true; 
+                    textId.disabled=!textId.disabled;
+                    textId.focus(); break;
+                 }
+            }
+
+            var english = /^[A-Za-z]*$/;
+            for (i=0;i<text.length;i++) {
+                if(english.test(text[i])) {
+                    return true;
+                }
+            }
+            return false;
+        }        
+
+        function blockArabicLang(textId){
+            var text = textId.value; 
+            var notCharacter = "1234567890.<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+            var found = false; 
+            for(i = 0 ;i < notCharacter.length; i++){
+                 if(text.indexOf(notCharacter.charAt(i)) != -1){
+                    textId.disabled=true; 
+                    alert(errorNumbers);
+                    found = true; 
+                    textId.disabled=!textId.disabled;
+                    textId.focus(); break;
+                 }
+            }
+
+            var arabic = /[\u0600-\u06FF]/;
+            for (i=0;i<text.length;i++) {
+                if(arabic.test(text[i])) {
+                    return true;
+                }
+            }
+            return false;
+        }    
+        function onKeyBlockEnglishLang(e,textId,message){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+
+             if(key !=13 && (key >  66 && key < 123)){
+				alert(message);
+                return false;
+             }
+             
+             if(key == 13){
+                 var text = textId.value; 
+                 var notCharacter = "1234567890.<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+                 var found = false; 
+                 for(i = 0 ;i < notCharacter.length; i++){
+                     if(text.indexOf(notCharacter.charAt(i)) != -1){
+                        textId.disabled=true; 
+                        alert(errorNumbers);
+                        found = true; 
+                        textId.disabled=!textId.disabled;
+                        textId.focus(); break;
+                     }
+                 }
+                 if(!found){
+                     document.getElementById("myForm:appLink").onclick();
+                 }
+             }
+               
+             var notCharacter = "1234567890.<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(keychar.indexOf(notCharacter.charAt(i)) != -1){
+                    return false;
+                 } 
+             }
+             return true;
+        }
+     
+        
+        function onKeyBlockArabicLang(e,textId,message){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+             
+             var notCharacter = "1234567890.<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(keychar.indexOf(notCharacter.charAt(i)) != -1){
+                    return false;
+                 } 
+             }
+             
+             if(key !=13 && (key < 65 || key > 122)){
+                 if(key !=32) // by mustafa
+		   alert(message);
+                return false;
+			
+             }
+             
+             if(key == 13){
+                 var text = textId.value; 
+                 var notCharacter = "1234567890.<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+                 var found = false; 
+                 for(i = 0 ;i < notCharacter.length; i++){
+                     if(text.indexOf(notCharacter.charAt(i)) != -1){
+                        textId.disabled=true; 
+                        alert(errorNumbers);
+                        found = true; 
+                        textId.disabled=!textId.disabled;
+                        textId.focus(); break;
+                     }
+                 }
+                 if(!found){
+                     document.getElementById("myForm:appLink").onclick();
+                 }
+             }
+               
+             var notCharacter = "1234567890.<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(keychar.indexOf(notCharacter.charAt(i)) != -1){
+                    return false;
+                 } 
+             }
+             return true;
+        }
+        
+        
+        
+        
+         function studentThesisBlockAr(e,textId,message){
+             var key = window.event ? e.keyCode : e.which;
+             var keychar = String.fromCharCode(key);
+			 
+			
+             
+             var notCharacter = ".<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(keychar.indexOf(notCharacter.charAt(i)) != -1){
+                    return false;
+                 } 
+             }
+             
+             if(key !=13 && key !=32 &&  key!=48 &&  key!=49 &&  key!=50 &&  key!=51 &&  key!=52 &&  key!=53 &&  key!=54 &&  key!=55 &&  key!=56 &&  key!=57 && (key < 65 || key > 122)){
+		   alert(message);
+                return false;
+			
+             }
+             
+             if(key == 13){
+                 var text = textId.value; 
+                 var notCharacter = ".<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+                 var found = false; 
+                 for(i = 0 ;i < notCharacter.length; i++){
+                     if(text.indexOf(notCharacter.charAt(i)) != -1){
+                        textId.disabled=true; 
+                        alert(errorNumbers);
+                        found = true; 
+                        textId.disabled=!textId.disabled;
+                        textId.focus(); break;
+                     }
+                 }
+                 if(!found){
+                     document.getElementById("myForm:appLink").onclick();
+                 }
+             }
+               
+             var notCharacter = ".<>?!@#$%^&*(){}*-+_='[]/\\" + '"'; 
+             for(i = 0 ;i < notCharacter.length; i++){
+                 if(keychar.indexOf(notCharacter.charAt(i)) != -1){
+                    return false;
+                 } 
+             }
+             return true;
+        }
+        
+        
+    
+
+
+function Trim(s)
+{
+	return rtrim(ltrim(s));
+}
+
+function ltrim(s)
+{
+	var l=0;
+	while(l < s.length && s[l] == ' ')
+	{	l++; }
+	return s.substring(l, s.length);
+}
+
+function rtrim(s)
+{
+	var r=s.length -1;
+	while(r > 0 && s[r] == ' ')
+	{	r-=1;	}
+	return s.substring(0, r+1);
+}
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+
+
+
+
+
+
